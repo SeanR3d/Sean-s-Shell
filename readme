@@ -1,0 +1,113 @@
+*****WELCOME TO SEAN'S SHELL PROGRAM!*****
+
+INTRODUCTION
+
+This is my second project for the Temple University course:
+CIS3207 - Introduction to Systems Programming and Operating Systems
+
+A shell is a user interface for access to an operating system's services.
+This progam will allow the user to run my version of a shell within a 
+linux shell itself. While running Sean's Shell, the user will have access
+to both the internal commands built into the Shell as well as external commands
+from the linux environment its running in.
+
+------------------------------------------------------------------------------------------------
+
+GETTING STARTED
+
+Once you have downloaded the nessesary files:
+    shell.c
+    shell.h
+    makefile
+
+Open the directory of the files within a linux shell.
+Execute the makefile to build the program:
+    $:~/SeansShellPath> makefile
+
+The makefile will add a new executable file for Sean's shell in the current directory.
+Execute this "shell" file to run Sean's Shell!
+    $:~/SeansShellPath> shell
+
+------------------------------------------------------------------------------------------------
+
+INTERNAL COMMANDS
+
+Sean's Shell features built in commands which let the user make use of their operating system:
+
+Change directory command: $cd
+    This internal command changes the current working directory to the
+    directory specified as the second arguement of the command line input.
+    If no arguements follow the cd command, the directory shall change to
+    the HOME directory. *MUST use "./" to specify relative path.*
+
+Clear screen command: $clr
+    This internal command clears the screen of the shell.
+
+Print directory command: $dir
+    Lists contents of the directory provided by the second arguement.
+    If there are no arguements passed with the command, the contents of
+    the current working directory are printed.
+    NOTE: The full path name of the arguement must be provided!
+
+        good: $:~/SeansShellPath> dir /home/TU/tuh42070/CIS3207/shell
+        bad:  $:~/SeansShellPath> dir /shell
+
+Environ command: $environ
+    This internal command lists all current environment variables.
+
+Echo command: $echo
+    This file will display the command line input following the echo command.
+
+Help command: $help
+    Prints out the user manual for the shell. Command specific commands can also
+    be displayed by entering the desired command as the first arguement:
+
+        $:~/SeansShellPath>help dir
+
+Pause command: $pause
+    Pause operation of the shell until 'Enter' is pressed.
+
+Quit command: $quit
+    Exits out of Sean's Shell and ends its process.
+
+
+------------------------------------------------------------------------------------------------
+
+EXTERNAL COMMAND SUPPORT
+
+Sean's Shell also supports commands that are provided by the Linux operating system. 
+You can learn more about Linux commands here: http://man7.org/linux/man-pages/index.html
+
+Sean's Shell also offers built in opperators for external commands:
+
+Running a background process:
+    A process can be executed in the background of the shell. To do so,    
+    an '&' character must be at the end of a command line:
+
+        $:~/SeansShell>exefile &
+
+Input/Output Redirection:
+A command's input or output file descriptors can be specified in
+the command line. This allows the user to change where the entered command
+process reads and writes from. i/o redirection can be done
+using the following characters:
+
+    '<'  - Redirects the input for the cmd process from the preceding arguement.
+
+    '>'  - Redirects the output of the cmd process to the proceeding arguement.
+            If the output file exists, the output will TRUNCATE the existing file.
+            If the output file does not exist, a new file will be created.
+
+    '>>' - Redirects the output of the cmd process to the proceeding arguement.
+            If the outfile exists, the output will be APPENDED to the file.
+            If the output file does not exist, a new file will be created.
+
+    $:~/SeansShell>cat < inputfile.txt > outputfile.txt
+
+Piping:
+Piping allows the user to execute multiple external commands on a single command line
+while interconnecting the file descriptors between the commands. The output of the first
+command will be connected through a "pipe" into the second command as input.nPiping can be 
+used by entering the '|' character following the first command, then the second command after:
+
+    $:~/SeansShell>exe1 inputForExe2.txt | exe2
